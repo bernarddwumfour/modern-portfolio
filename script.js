@@ -1,0 +1,515 @@
+// HERO SWIPER SLIDESHOW
+(function() {
+  const projectsData = [
+  { 
+    id: 'kyrios', 
+    name: 'Kyrios — E-Learning Platform',
+    shortDesc: 'Online learning platform with tiered subscriptions, course purchasing, Google OAuth, and interactive dashboards for users and admins.',
+    type: 'Next.js · Django · PostgreSQL', 
+    locked: false,
+    links: [
+      { url: 'https://github.com/bernarddwumfour/Creaca', label: 'Frontend' },
+      { url: 'https://github.com/bernarddwumfour/kyrios-backend', label: 'Backend' }
+    ],
+    slides: [
+      { img: 'images/kyrios_hero_landing.png', cap: 'AI-Driven Skill Acquisition Hero' },
+      { img: 'images/kyrios_course_catalog.png', cap: 'Multi-Disciplinary Course Explorer' },
+      { img: 'images/kyrios_pricing_plans.png', cap: 'Tiered Learning Path Subscriptions' },
+      { img: 'images/kyrios_admin_dashboard.png', cap: 'System Oversight & Admin Analytics' },
+      { img: 'images/kyrios_user_profile.png', cap: 'User Personalization & Account Info' },
+      { img: 'images/kyrios_security_settings.png', cap: 'Advanced Workspace Security & 2FA' }
+    ]
+  },
+  { 
+    id: 'iplug', 
+    name: 'iPlug — E-Commerce & POS',
+    shortDesc: 'Unified retail ecosystem: customer-facing web storefront + on-premise POS with live inventory sync, barcode scanning, and split payment processing.',
+    type: 'Next.js · Django · PostgreSQL', 
+    locked: false,
+    links: [
+      { url: 'https://github.com/bernarddwumfour/estore-frontend', label: 'Frontend' },
+      { url: 'https://github.com/bernarddwumfour/estore-backend', label: 'Backend' }
+    ],
+    slides: [
+      { img: 'images/iplug_storefront_hero.png', cap: 'Premium Apple Retail Digital Storefront Hero' },
+      { img: 'images/iplug_product_grid.png', cap: 'Dynamic Catalog Filtering and Product Grid' },
+      { img: 'images/iplug_categories_showcase.png', cap: 'Visual Category Explorer and Promotional Banners' },
+      { img: 'images/iplug_admin_analytics.png', cap: 'Products Analytics, Revenue and Order Trends Dashboard' },
+      { img: 'images/iplug_category_management.png', cap: 'Backend Inventory Management and Category Hierarchy' },
+      { img: 'images/iplug_pos_terminal.png', cap: 'Cloud-Synced Point of Sale Checkout Interface' },
+      { img: 'images/iplug_order_logs.png', cap: 'System Audit Logs & Order Activity Monitor' }
+    ]
+  },
+  {
+    id: 'furnichar',
+    name: 'Furnichar — Premium E-Commerce',
+    shortDesc: 'Immersive online furniture retail concept emphasizing clean structural grids, high-fidelity production imagery, and seamless checkout pipelines.',
+    type: 'UI/UX Design · Figma',
+    locked: false,
+    links: [],
+    slides: [
+      { img: 'images/furnichar_hero_showcase.png', cap: 'Minimalist Furniture E-Commerce Hero & Product Feature' }
+    ]
+  },
+  {
+    id: 'constructionui',
+    name: 'Apex Construction Landing Page',
+    shortDesc: 'Professional landing page blueprint for structural engineering firm highlighting core engineering services, project milestones, and heavy machinery operations.',
+    type: 'UI/UX Design · Figma',
+    locked: false,
+    links: [],
+    slides: [
+      { img: 'images/constructionui_landing_page.png', cap: 'Industrial Construction Services & Corporate Branding Showpiece' }
+    ]
+  },
+  {
+    id: 'sparklescrub',
+    name: 'SparkleScrub — Commercial Cleaning',
+    shortDesc: 'Service booking presentation page tailored for modern professional cleaning enterprises, prioritizing transparent pricing tiers and user conversion architecture.',
+    type: 'UI/UX Design · Figma',
+    locked: false,
+    links: [],
+    slides: [
+      { img: 'images/sparklescrub_service_booking.png', cap: 'Commercial and Domestic Cleaner Service Information Portal' }
+    ]
+  },
+  {
+    id: 'salon',
+    name: 'GlowSalon — Wellness Booking Platform',
+    shortDesc: 'Elegant luxury beauty and spa appointment platform mockup incorporating clean layout components to improve friction-free service bookings.',
+    type: 'UI/UX Design · Figma',
+    locked: false,
+    links: [],
+    slides: [
+      { img: 'images/salon_appointment_hub.png', cap: 'High-End Wellness Salon Landing and Appointment Hub' }
+    ]
+  },
+  {
+    id: 'plantui',
+    name: 'Verdant — Botanical Retail Portal',
+    shortDesc: 'Organic e-commerce layout emphasizing modern plant nurseries, clean typography, minimalist navigation paths, and botanical care instructions.',
+    type: 'UI/UX Design · Figma',
+    locked: false,
+    links: [],
+    slides: [
+      { img: 'images/plantui_botanical_catalog.png', cap: 'Urban Plant Nursery Storefront Grid and Lifestyle Section' }
+    ]
+  },
+  {
+    id: 'herbalui',
+    name: 'Herbal Essence — Wellness Brand Page',
+    shortDesc: 'Holistic healthcare product application concept blending clean earthy tones, transparent ingredient lists, and smooth customer navigation layouts.',
+    type: 'UI/UX Design · Figma',
+    locked: false,
+    links: [],
+    slides: [
+      { img: 'images/herbalui_wellness_storefront.png', cap: 'Natural Organic Skincare and Herbal Products Landing Page' }
+    ]
+  }
+];
+
+  const flat = [];
+  projectsData.forEach((proj, pi) => {
+    proj.slides.forEach((slide, si) => {
+      flat.push({ pi, si, slide, proj: proj });
+    });
+  });
+
+  const track = document.getElementById('heroViewerTrack');
+  const thumbsEl = document.getElementById('heroThumbs');
+  
+  if (track && thumbsEl) {
+    flat.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'hero-viewer-slide';
+      div.innerHTML = `<img src="${item.slide.img}" alt="${item.slide.caption}" loading="lazy">`;
+      track.appendChild(div);
+    });
+
+    projectsData.forEach((proj, pi) => {
+      const th = document.createElement('div');
+      th.className = 'hero-thumb' + (pi === 0 ? ' active' : '');
+      th.innerHTML = `
+        <img src="${proj.slides[0].img}" alt="${proj.name}" loading="lazy">
+        <div class="hero-thumb-label"><span>${proj.name.split('—')[0].trim().split(' ').slice(0,2).join(' ')}</span></div>
+      `;
+      th.addEventListener('click', () => jumpToProject(pi));
+      thumbsEl.appendChild(th);
+    });
+
+    let curFlat = 0;
+    let elapsed = 0;
+    let tick;
+    const SLIDE_MS = 3000;
+
+    function goToFlat(idx, resetEl = true) {
+      curFlat = (idx + flat.length) % flat.length;
+      const item = flat[curFlat];
+      track.style.transform = `translateX(-${curFlat * 100}%)`;
+      document.getElementById('heroViewerProj').textContent = item.proj.name;
+      document.getElementById('heroViewerName').textContent = item.slide.caption;
+      document.getElementById('heroViewerCaption').textContent = `${item.si + 1} / ${item.proj.slides.length}`;
+      document.querySelectorAll('.hero-thumb').forEach((t, i) => t.classList.toggle('active', i === item.pi));
+      if (resetEl) {
+        elapsed = 0;
+        document.getElementById('heroProgressFill').style.width = '0%';
+      }
+      resetTick();
+    }
+
+    function jumpToProject(pi) {
+      const idx = flat.findIndex(f => f.pi === pi);
+      if (idx >= 0) goToFlat(idx);
+    }
+
+    function resetTick() {
+      clearInterval(tick);
+      tick = setInterval(() => {
+        elapsed += 80;
+        const pct = Math.min(elapsed / SLIDE_MS * 100, 100);
+        document.getElementById('heroProgressFill').style.width = pct + '%';
+        if (elapsed >= SLIDE_MS) {
+          elapsed = 0;
+          goToFlat(curFlat + 1, false);
+        }
+      }, 80);
+    }
+
+    document.getElementById('heroPrev').addEventListener('click', () => goToFlat(curFlat - 1));
+    document.getElementById('heroNext').addEventListener('click', () => goToFlat(curFlat + 1));
+    goToFlat(0);
+  }
+})();
+
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+if (cursor && ring) {
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+  });
+  (function loop() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(loop);
+  })();
+}
+
+// Theme toggle
+const html = document.documentElement;
+const themeBtn = document.getElementById('themeBtn');
+const savedTheme = localStorage.getItem('theme') || 'dark';
+html.setAttribute('data-theme', savedTheme);
+themeBtn.addEventListener('click', () => {
+  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+});
+
+// Hamburger / mobile menu
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+if (hamburger && mobileMenu) {
+  hamburger.addEventListener('click', () => {
+    const open = hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  document.querySelectorAll('.mobile-nav-link').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+}
+
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  if (nav) nav.classList.toggle('scrolled', window.scrollY > 40);
+  const sections = ['hero', 'about', 'experience', 'work', 'skills', 'contact'];
+  let current = sections[0];
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= 120) current = id;
+  });
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+});
+
+// Scroll reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+
+// Make hero-thumbs draggable for horizontal scroll
+const heroThumbs = document.querySelector('.hero-thumbs');
+if (heroThumbs) {
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+
+  heroThumbs.addEventListener('mousedown', (e) => {
+    isDown = true;
+    heroThumbs.classList.add('active');
+    startX = e.pageX - heroThumbs.offsetLeft;
+    scrollLeft = heroThumbs.scrollLeft;
+  });
+
+  heroThumbs.addEventListener('mouseleave', () => {
+    isDown = false;
+    heroThumbs.classList.remove('active');
+  });
+
+  heroThumbs.addEventListener('mouseup', () => {
+    isDown = false;
+    heroThumbs.classList.remove('active');
+  });
+
+  heroThumbs.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - heroThumbs.offsetLeft;
+    const walk = (x - startX) * 1.5; // scroll speed multiplier
+    heroThumbs.scrollLeft = scrollLeft - walk;
+  });
+
+  heroThumbs.style.cursor = 'grab';
+  heroThumbs.addEventListener('mousedown', () => {
+    heroThumbs.style.cursor = 'grabbing';
+  });
+  heroThumbs.addEventListener('mouseup', () => {
+    heroThumbs.style.cursor = 'grab';
+  });
+}
+
+/* PROJECT SECTION DYNAMICS */
+const CARD_MS = 3500;
+const GH_ICON = `<svg width="11" height="11" viewBox="0 0 12 12" fill="currentColor"><path d="M6 1C3.24 1 1 3.24 1 6c0 2.21 1.43 4.09 3.42 4.75.25.05.34-.11.34-.24v-.85c-1.39.3-1.68-.67-1.68-.67-.23-.58-.56-.73-.56-.73-.45-.31.03-.3.03-.3.5.03.76.51.76.51.44.76 1.16.54 1.44.41.04-.32.17-.54.31-.66-1.1-.13-2.26-.55-2.26-2.45 0-.54.19-.98.51-1.33-.05-.12-.22-.63.05-1.31 0 0 .42-.13 1.37.51A4.77 4.77 0 016 3.52c.42 0 .85.06 1.25.17.95-.64 1.37-.51 1.37-.51.27.68.1 1.19.05 1.31.32.35.51.79.51 1.33 0 1.91-1.16 2.32-2.27 2.45.18.15.34.46.34.92v1.37c0 .13.09.29.34.24A5.01 5.01 0 0011 6c0-2.76-2.24-5-5-5z"/></svg>`;
+const LOCK_ICON = `<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><rect x="1" y="4" width="8" height="5.5" rx="1" stroke="currentColor" stroke-width="0.9"/><path d="M3 4V3a2 2 0 014 0v1" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"/></svg>`;
+const EYE_ICON = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
+
+const PROJECTS = {
+  software: [
+  { 
+    id: 'kyrios', 
+    name: 'Kyrios — E-Learning Platform',
+    shortDesc: 'Online learning platform with tiered subscriptions, course purchasing, Google OAuth, and interactive dashboards for users and admins.',
+    type: 'Next.js · Django · PostgreSQL', 
+    locked: false,
+    previewUrl: 'https://kyrios-demo.vercel.app/en',
+    links: [
+      { url: 'https://github.com/bernarddwumfour/Creaca', label: 'Frontend' },
+      { url: 'https://github.com/bernarddwumfour/kyrios-backend', label: 'Backend' }
+    ],
+    slides: [
+      { img: 'images/kyrios_hero_landing.png', cap: 'AI-Driven Skill Acquisition Hero' },
+      { img: 'images/kyrios_course_catalog.png', cap: 'Multi-Disciplinary Course Explorer' },
+      { img: 'images/kyrios_pricing_plans.png', cap: 'Tiered Learning Path Subscriptions' },
+      { img: 'images/kyrios_admin_dashboard.png', cap: 'System Oversight & Admin Analytics' },
+      { img: 'images/kyrios_user_profile.png', cap: 'User Personalization & Account Info' },
+      { img: 'images/kyrios_security_settings.png', cap: 'Advanced Workspace Security & 2FA' }
+    ]
+  },
+  { 
+    id: 'iplug', 
+    name: 'iPlug — E-Commerce & POS',
+    shortDesc: 'Unified retail ecosystem: customer-facing web storefront + on-premise POS with live inventory sync, barcode scanning, and split payment processing.',
+    type: 'Next.js · Django · PostgreSQL', 
+    locked: false,
+    previewUrl: 'https://estore-frontend-boqb.vercel.app/',
+    links: [
+      { url: 'https://github.com/bernarddwumfour/estore-frontend', label: 'Frontend' },
+      { url: 'https://github.com/bernarddwumfour/estore-backend', label: 'Backend' }
+    ],
+    slides: [
+      { img: 'images/iplug_storefront_hero.png', cap: 'Premium Apple Retail Digital Storefront Hero' },
+      { img: 'images/iplug_product_grid.png', cap: 'Dynamic Catalog Filtering and Product Grid' },
+      { img: 'images/iplug_categories_showcase.png', cap: 'Visual Category Explorer and Promotional Banners' },
+      { img: 'images/iplug_admin_analytics.png', cap: 'Products Analytics, Revenue and Order Trends Dashboard' },
+      { img: 'images/iplug_category_management.png', cap: 'Backend Inventory Management and Category Hierarchy' },
+      { img: 'images/iplug_pos_terminal.png', cap: 'Cloud-Synced Point of Sale Checkout Interface' },
+      { img: 'images/iplug_order_logs.png', cap: 'System Audit Logs & Order Activity Monitor' }
+    ]
+  },
+],
+  uiux: [
+  {
+    id: 'furnichar',
+    name: 'Furnichar — Premium E-Commerce',
+    shortDesc: 'Immersive online furniture retail concept emphasizing clean structural grids, high-fidelity production imagery, and seamless checkout pipelines.',
+    type: 'UI/UX Design · Figma',
+    locked: false,
+    previewUrl: 'https://www.figma.com/design/Te914L3OTQXb2E9JQtK1zV/Untitled?node-id=0-1&t=7edxXdc37ZtESBw9-0',
+    links: [],
+    slides: [
+      { img: 'images/furnichar_hero_showcase.png', cap: 'Minimalist Furniture E-Commerce Hero & Product Feature' }
+    ]
+  },
+  {
+    id: 'sparklescrub',
+    name: 'SparkleScrub — Commercial Cleaning',
+    shortDesc: 'Service booking presentation page tailored for modern professional cleaning enterprises, prioritizing transparent pricing tiers and user conversion architecture.',
+    type: 'UI/UX Design · Figma',
+    locked: false,
+    previewUrl: 'https://www.figma.com/design/m8k8KQpaZN6DXGipWBBD99/Untitled?node-id=0-1&t=ZbFy7KElvtMarocd-0',
+    links: [],
+    slides: [
+      { img: 'images/sparklescrub_service_booking.png', cap: 'Commercial and Domestic Cleaner Service Information Portal' }
+    ]
+  },
+  {
+    id: 'salon',
+    name: 'GlowSalon — Wellness Booking Platform',
+    shortDesc: 'Elegant luxury beauty and spa appointment platform mockup incorporating clean layout components to improve friction-free service bookings.',
+    type: 'UI/UX Design · Figma',
+    locked: false,
+    previewUrl: 'https://www.figma.com/design/4DXRbTKDdTThPfcdbeOo9H/Untitled?node-id=0-1&t=6jamwAUNh3gLNANf-1',
+    links: [],
+    slides: [
+      { img: 'images/salon_appointment_hub.png', cap: 'High-End Wellness Salon Landing and Appointment Hub' }
+    ]
+  },
+  {
+    id: 'plantui',
+    name: 'Verdant — Botanical Retail Portal',
+    shortDesc: 'Organic e-commerce layout emphasizing modern plant nurseries, clean typography, minimalist navigation paths, and botanical care instructions.',
+    type: 'UI/UX Design · Figma',
+    locked: false,
+    previewUrl: 'https://www.figma.com/design/rp4oDJ7XWsH5z50KwSACUd/Untitled?node-id=0-1&t=LstXrxVJlh5LugzK-1',
+    links: [],
+    slides: [
+      { img: 'images/plantui_botanical_catalog.png', cap: 'Urban Plant Nursery Storefront Grid and Lifestyle Section' }
+    ]
+  },
+  {
+    id: 'herbalui',
+    name: 'Herbal Essence — Wellness Brand Page',
+    shortDesc: 'Holistic healthcare product application concept blending clean earthy tones, transparent ingredient lists, and smooth customer navigation layouts.',
+    type: 'UI/UX Design · Figma',
+    locked: false,
+    previewUrl: 'https://www.figma.com/file/EeTZQiqhsiJ6OanfDcDcwh/Untitled?type=design&node-id=0-1&mode=design&t=ksTvfDoJ1BXyH7ZJ-0',
+    links: [],
+    slides: [
+      { img: 'images/herbalui_wellness_storefront.png', cap: 'Natural Organic Skincare and Herbal Products Landing Page' }
+    ]
+  },
+  {
+    id: 'constructionui',
+    name: 'Apex Construction Landing Page',
+    shortDesc: 'Professional landing page blueprint for structural engineering firm highlighting core engineering services, project milestones, and heavy machinery operations.',
+    type: 'UI/UX Design · Figma',
+    locked: false,
+    previewUrl: '',
+    links: [],
+    slides: [
+      { img: 'images/constructionui_landing_page.png', cap: 'Industrial Construction Services & Corporate Branding Showpiece' }
+    ]
+  },
+]
+};
+
+function buildCard(proj) {
+  const slides = proj.slides.map((s,i)=>`
+    <div class="proj-slide">
+      <img src="${s.img}" alt="${s.cap}" loading="lazy">
+      <div class="proj-slide-ov">
+        <div class="proj-slide-label">Slide note</div>
+        <div class="proj-slide-text">${s.cap}</div>
+      </div>
+    </div>`).join('');
+  const dots = proj.slides.length>1 ? proj.slides.map((_,i)=>`<div class="proj-dot${i===0?' active':''}" data-i="${i}"></div>`).join('') : '';
+  const arrows = proj.slides.length>1 ? `<div class="proj-arrows"><div class="proj-arrow pa-prev">&#8592;</div><div class="proj-arrow pa-next">&#8594;</div></div>` : '';
+  
+  const previewLink = (proj.previewUrl && proj.previewUrl.trim() !== '') 
+    ? `<a href="${proj.previewUrl}" target="_blank" class="proj-link preview-btn" title="Live Preview">${EYE_ICON}</a>` 
+    : '';
+
+  const links = proj.links.map(l=>`<a href="${l.url}" target="_blank" class="proj-link" title="${l.label} GitHub">${GH_ICON}</a>`).join('');
+  const tags = proj.type.split('·').map(t=>`<span class="tag">${t.trim()}</span>`).join('');
+  const locked = proj.locked ? `<div class="locked-badge">${LOCK_ICON} Private / Enterprise</div>` : '';
+  return `
+  <div class="proj-card reveal" data-id="${proj.id}">
+    <div class="proj-ss">
+      <div class="proj-prog"><div class="proj-prog-fill"></div></div>
+      <div class="proj-track">${slides}</div>
+      ${arrows}
+      ${proj.slides.length>1 ? `<div class="proj-dots">${dots}</div>` : ''}
+      ${proj.slides.length>1 ? `<div class="proj-counter">1 / ${proj.slides.length}</div>` : ''}
+    </div>
+    <div class="proj-info">
+      <div class="proj-info-top">
+        <div class="proj-name">${proj.name}</div>
+        <div class="proj-links-row">${previewLink}${links}</div>
+      </div>
+      <p class="proj-short-desc">${proj.shortDesc}</p>
+      <div class="proj-tags">${tags}</div>
+      ${locked}
+    </div>
+  </div>`;
+}
+
+function initCard(card) {
+  const track = card.querySelector('.proj-track');
+  const dots = card.querySelectorAll('.proj-dot');
+  const prevBtn = card.querySelector('.pa-prev');
+  const nextBtn = card.querySelector('.pa-next');
+  const pFill = card.querySelector('.proj-prog-fill');
+  const counterEl = card.querySelector('.proj-counter');
+  if (!track) return;
+  const total = track.children.length;
+  if (total <= 1) return;
+  let cur = 0, elapsed = 0, tick = null;
+  function goTo(n, rst = true) {
+    cur = (n + total) % total;
+    track.style.transform = `translateX(-${cur * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === cur));
+    if (counterEl) counterEl.textContent = `${cur+1} / ${total}`;
+    if (rst) { elapsed = 0; pFill.style.width = '0%'; }
+    startTick();
+  }
+  function startTick() {
+    clearInterval(tick);
+    tick = setInterval(() => {
+      elapsed += 80;
+      pFill.style.width = Math.min(elapsed / CARD_MS * 100, 100) + '%';
+      if (elapsed >= CARD_MS) { elapsed = 0; goTo(cur + 1, false); }
+    }, 80);
+  }
+  if (prevBtn) prevBtn.addEventListener('click', () => goTo(cur - 1));
+  if (nextBtn) nextBtn.addEventListener('click', () => goTo(cur + 1));
+  dots.forEach(d => d.addEventListener('click', () => goTo(parseInt(d.dataset.i))));
+  card.addEventListener('mouseenter', () => clearInterval(tick));
+  card.addEventListener('mouseleave', () => startTick());
+  startTick();
+}
+
+let currentTab = 'software';
+function renderGrid(tab) {
+  const grid = document.getElementById('projectsGrid');
+  grid.innerHTML = PROJECTS[tab].map(buildCard).join('');
+  grid.querySelectorAll('.proj-card').forEach(c => { initCard(c); obs.observe(c); });
+}
+document.getElementById('projTabs').addEventListener('click', e => {
+  const btn = e.target.closest('.proj-tab');
+  if (!btn) return;
+  currentTab = btn.dataset.tab;
+  document.querySelectorAll('.proj-tab').forEach(t => t.classList.toggle('active', t === btn));
+  renderGrid(currentTab);
+});
+renderGrid('software');
