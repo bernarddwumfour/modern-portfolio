@@ -232,12 +232,17 @@ if (hamburger && mobileMenu) {
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
   if (nav) nav.classList.toggle('scrolled', window.scrollY > 40);
-  const sections = ['hero', 'about', 'experience', 'work', 'skills', 'contact'];
+  const sections = ['hero', 'about', 'experience', 'skills', 'work', 'contact'];
   let current = sections[0];
-  sections.forEach(id => {
-    const el = document.getElementById(id);
-    if (el && el.getBoundingClientRect().top <= 120) current = id;
-  });
+  const nearBottom = window.innerHeight + window.scrollY >= document.body.scrollHeight - 80;
+  if (nearBottom) {
+    current = 'contact';
+  } else {
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top <= 120) current = id;
+    });
+  }
   document.querySelectorAll('.nav-links a').forEach(a => {
     a.classList.toggle('active', a.getAttribute('href') === '#' + current);
   });
@@ -424,6 +429,8 @@ const PROJECTS = {
 ]
 };
 
+PROJECTS.all = [...PROJECTS.software, ...PROJECTS.uiux];
+
 function buildCard(proj) {
   const slides = proj.slides.map((s,i)=>`
     <div class="proj-slide">
@@ -499,7 +506,7 @@ function initCard(card) {
   startTick();
 }
 
-let currentTab = 'software';
+let currentTab = 'all';
 function renderGrid(tab) {
   const grid = document.getElementById('projectsGrid');
   grid.innerHTML = PROJECTS[tab].map(buildCard).join('');
@@ -512,7 +519,78 @@ document.getElementById('projTabs').addEventListener('click', e => {
   document.querySelectorAll('.proj-tab').forEach(t => t.classList.toggle('active', t === btn));
   renderGrid(currentTab);
 });
-renderGrid('software');
+
+// ============================================
+// EMAILJS
+// ============================================
+emailjs.init('2yST3hqNehmlhb6Kj');
+
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const text = document.getElementById('submitText');
+    const spinner = document.getElementById('submitSpinner');
+    const status = document.getElementById('formStatus');
+
+    btn.disabled = true;
+    text.textContent = 'Sending...';
+    spinner.style.display = 'inline-block';
+    status.textContent = '';
+    status.className = 'form-status';
+
+    emailjs.sendForm('service_pv46ltl', 'template_1c80uem', this)
+      .then(() => {
+        status.textContent = '✓ Message sent! I\'ll get back to you soon.';
+        status.className = 'form-status success';
+        contactForm.reset();
+      })
+      .catch(() => {
+        status.textContent = '✗ Something went wrong. Please try emailing me directly.';
+        status.className = 'form-status error';
+      })
+      .finally(() => {
+        btn.disabled = false;
+        text.textContent = 'Send Message';
+        spinner.style.display = 'none';
+      });
+  });
+}
+
+// ============================================
+// BACK TO TOP + POPUP TOGGLE
+// ============================================
+const backToTop = document.getElementById('backToTop');
+const fabContactToggle = document.getElementById('fabContactToggle');
+const contactPopup = document.getElementById('contactPopup');
+const contactPopupClose = document.getElementById('contactPopupClose');
+
+if (backToTop) {
+  window.addEventListener('scroll', () => {
+    backToTop.classList.toggle('visible', window.scrollY > 500);
+  });
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+
+if (fabContactToggle && contactPopup) {
+  fabContactToggle.addEventListener('click', () => {
+    contactPopup.classList.toggle('open');
+  });
+  contactPopupClose.addEventListener('click', () => {
+    contactPopup.classList.remove('open');
+  });
+  // close when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!contactPopup.contains(e.target) && !fabContactToggle.contains(e.target)) {
+      contactPopup.classList.remove('open');
+    }
+  });
+}
+
+renderGrid('all');
 
 
 // ============================================
