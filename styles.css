@@ -1854,7 +1854,7 @@ footer .socials a:hover {
 .fab-child-wrap:hover .fab-label { opacity: 1; }
 
 @media (max-width: 480px) {
-  .fab-root { bottom: 20px; right: 16px; }
+  .fab-root { bottom: 56px; right: 16px; }
   .contact-popup { right: 16px; bottom: 88px; width: calc(100vw - 32px); }
 }
 
