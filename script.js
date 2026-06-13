@@ -489,7 +489,7 @@ function initCard(card) {
       elapsed += 80;
       pFill.style.width = Math.min(elapsed / CARD_MS * 100, 100) + '%';
       if (elapsed >= CARD_MS) { elapsed = 0; goTo(cur + 1, false); }
-    }, 80);
+    }, 120);
   }
   if (prevBtn) prevBtn.addEventListener('click', () => goTo(cur - 1));
   if (nextBtn) nextBtn.addEventListener('click', () => goTo(cur + 1));
@@ -513,3 +513,95 @@ document.getElementById('projTabs').addEventListener('click', e => {
   renderGrid(currentTab);
 });
 renderGrid('software');
+
+
+// ============================================
+// SPIRAL WAVE ANIMATION CANVAS
+// ============================================
+(function initSpiralWave() {
+  const canvas = document.getElementById('spiralCanvas');
+  if (!canvas) return;
+  
+  const ctx = canvas.getContext('2d');
+  let W, H, time = 0;
+  let animationId = null;
+
+  function resizeCanvas() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  const LINES = 20;
+  const SPEED = 0.005;
+
+  function drawLine(i) {
+    const p = i / (LINES - 1);
+    
+    // Dynamic color based on position (matches theme)
+    const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
+    const r = isDark ? Math.floor(80 + p * 100) : Math.floor(60 + p * 80);
+    const g = isDark ? Math.floor(60 + p * 80) : Math.floor(90 + p * 70);
+    const b = isDark ? Math.floor(180 + p * 75) : Math.floor(150 + p * 105);
+    const alpha = 0.15 + p * 0.65;
+    const lw = 0.7 + p * 1.2;
+
+    const spread = Math.min(W, H) * 0.06;
+    const edgeDistance = Math.abs(p - 0.5) * 3;
+    const spreadMultiplier = Math.pow(edgeDistance, .9);
+    const perpOffset = (p - 0.5) * spread * spreadMultiplier * 0.8;
+
+    const dx = 1 / Math.sqrt(2);
+    const dy = 1 / Math.sqrt(2);
+    const nx = -dy;
+    const ny = dx;
+
+    ctx.beginPath();
+    ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+    ctx.lineWidth = lw;
+
+    const centerFactor = Math.pow(Math.max(0, 0.65 - edgeDistance), 1.6);
+    const twistStrength = centerFactor * 125;
+
+    const STEPS = 30;
+    for (let s = 0; s <= STEPS; s++) {
+      const tVal = s / STEPS;
+      const diag = tVal * 1.3 - 0.15;
+      let bx = diag * W;
+      let by = diag * H;
+
+      const freq1 = 0.0028 + p * 0.0018;
+      const freq2 = freq1 * 1.5;
+      const amp = 30 + p * 75;
+
+      const wave = Math.sin(tVal * W * freq1 + time + i * 0.16) * amp * 0.7
+                 + Math.sin(tVal * W * freq2 + time * 0.8 + i * 0.22) * amp * 0.3;
+
+      const twistWave = Math.sin(tVal * Math.PI * 2.5 + p * 2.2) * twistStrength;
+
+      const totalPerp = perpOffset + wave + twistWave;
+      const px = bx + nx * totalPerp;
+      const py = by + ny * totalPerp;
+
+      s === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+    }
+    ctx.stroke();
+  }
+
+  function animateSpiral() {
+    if (!ctx) return;
+    ctx.clearRect(0, 0, W, H);
+    for (let i = 0; i < LINES; i++) drawLine(i);
+    time += SPEED;
+    animationId = requestAnimationFrame(animateSpiral);
+  }
+
+  animateSpiral();
+
+  // Optional: restart animation on theme change to refresh colors
+  const observer = new MutationObserver(() => {
+    // Colors will update on next frames naturally
+  });
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+})();
