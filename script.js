@@ -1,132 +1,169 @@
-// HERO SWIPER SLIDESHOW
+// ============================================
+// SINGLE SOURCE OF TRUTH — ALL PROJECTS
+// Used by both the hero swiper and the Work grid.
+// Order here drives the "All" order everywhere.
+// ============================================
+const ALL_PROJECTS = [
+  {
+    id: 'kyrios',
+    name: 'Kyrios — E-Learning Platform',
+    shortDesc: 'Online learning platform with tiered subscriptions, course purchasing, Google OAuth, and interactive dashboards for users and admins.',
+    type: 'Next.js · Django · PostgreSQL',
+    category: 'software',
+    locked: false,
+    previewUrl: 'https://kyrios-demo.vercel.app/en',
+    links: [
+      { url: 'https://github.com/bernarddwumfour/Creaca', label: 'Frontend' },
+      { url: 'https://github.com/bernarddwumfour/kyrios-backend', label: 'Backend' }
+    ],
+    slides: [
+      { img: 'images/kyrios_hero_landing.png', cap: 'AI-Driven Skill Acquisition Hero' },
+      { img: 'images/kyrios_course_catalog.png', cap: 'Multi-Disciplinary Course Explorer' },
+      { img: 'images/kyrios_pricing_plans.png', cap: 'Tiered Learning Path Subscriptions' },
+      { img: 'images/kyrios_admin_dashboard.png', cap: 'System Oversight & Admin Analytics' },
+      { img: 'images/kyrios_user_profile.png', cap: 'User Personalization & Account Info' },
+      { img: 'images/kyrios_security_settings.png', cap: 'Advanced Workspace Security & 2FA' }
+    ]
+  },
+  {
+    id: 'iplug',
+    name: 'iPlug — E-Commerce & POS',
+    shortDesc: 'Unified retail ecosystem: customer-facing web storefront + on-premise POS with live inventory sync, barcode scanning, and split payment processing.',
+    type: 'Next.js · Django · PostgreSQL',
+    category: 'software',
+    locked: false,
+    previewUrl: 'https://estore-frontend-boqb.vercel.app/',
+    links: [
+      { url: 'https://github.com/bernarddwumfour/estore-frontend', label: 'Frontend' },
+      { url: 'https://github.com/bernarddwumfour/estore-backend', label: 'Backend' }
+    ],
+    slides: [
+      { img: 'images/iplug_storefront_hero.png', cap: 'Premium Apple Retail Digital Storefront Hero' },
+      { img: 'images/iplug_product_grid.png', cap: 'Dynamic Catalog Filtering and Product Grid' },
+      { img: 'images/iplug_categories_showcase.png', cap: 'Visual Category Explorer and Promotional Banners' },
+      { img: 'images/iplug_admin_analytics.png', cap: 'Products Analytics, Revenue and Order Trends Dashboard' },
+      { img: 'images/iplug_category_management.png', cap: 'Backend Inventory Management and Category Hierarchy' },
+      { img: 'images/iplug_pos_terminal.png', cap: 'Cloud-Synced Point of Sale Checkout Interface' },
+      { img: 'images/iplug_order_logs.png', cap: 'System Audit Logs & Order Activity Monitor' }
+    ]
+  },
+  {
+    id: 'furnichar',
+    name: 'Furnichar — Premium E-Commerce',
+    shortDesc: 'Immersive online furniture retail concept emphasizing clean structural grids, high-fidelity production imagery, and seamless checkout pipelines.',
+    type: 'UI/UX Design · Figma',
+    category: 'uiux',
+    locked: false,
+    previewUrl: 'https://www.figma.com/design/Te914L3OTQXb2E9JQtK1zV/Untitled?node-id=0-1&t=7edxXdc37ZtESBw9-0',
+    links: [],
+    slides: [
+      { img: 'images/furnichar_hero_showcase.png', cap: 'Minimalist Furniture E-Commerce Hero & Product Feature' }
+    ]
+  },
+  {
+    id: 'sparklescrub',
+    name: 'SparkleScrub — Commercial Cleaning',
+    shortDesc: 'Service booking presentation page tailored for modern professional cleaning enterprises, prioritizing transparent pricing tiers and user conversion architecture.',
+    type: 'UI/UX Design · Figma',
+    category: 'uiux',
+    locked: false,
+    previewUrl: 'https://www.figma.com/design/m8k8KQpaZN6DXGipWBBD99/Untitled?node-id=0-1&t=ZbFy7KElvtMarocd-0',
+    links: [],
+    slides: [
+      { img: 'images/sparklescrub_service_booking.png', cap: 'Commercial and Domestic Cleaner Service Information Portal' }
+    ]
+  },
+  {
+    id: 'salon',
+    name: 'GlowSalon — Wellness Booking Platform',
+    shortDesc: 'Elegant luxury beauty and spa appointment platform mockup incorporating clean layout components to improve friction-free service bookings.',
+    type: 'UI/UX Design · Figma',
+    category: 'uiux',
+    locked: false,
+    previewUrl: 'https://www.figma.com/design/4DXRbTKDdTThPfcdbeOo9H/Untitled?node-id=0-1&t=6jamwAUNh3gLNANf-1',
+    links: [],
+    slides: [
+      { img: 'images/salon_appointment_hub.png', cap: 'High-End Wellness Salon Landing and Appointment Hub' }
+    ]
+  },
+  {
+    id: 'plantui',
+    name: 'Verdant — Botanical Retail Portal',
+    shortDesc: 'Organic e-commerce layout emphasizing modern plant nurseries, clean typography, minimalist navigation paths, and botanical care instructions.',
+    type: 'UI/UX Design · Figma',
+    category: 'uiux',
+    locked: false,
+    previewUrl: 'https://www.figma.com/design/rp4oDJ7XWsH5z50KwSACUd/Untitled?node-id=0-1&t=LstXrxVJlh5LugzK-1',
+    links: [],
+    slides: [
+      { img: 'images/plantui_botanical_catalog.png', cap: 'Urban Plant Nursery Storefront Grid and Lifestyle Section' }
+    ]
+  },
+  {
+    id: 'herbalui',
+    name: 'Herbal Essence — Wellness Brand Page',
+    shortDesc: 'Holistic healthcare product application concept blending clean earthy tones, transparent ingredient lists, and smooth customer navigation layouts.',
+    type: 'UI/UX Design · Figma',
+    category: 'uiux',
+    locked: false,
+    previewUrl: 'https://www.figma.com/file/EeTZQiqhsiJ6OanfDcDcwh/Untitled?type=design&node-id=0-1&mode=design&t=ksTvfDoJ1BXyH7ZJ-0',
+    links: [],
+    slides: [
+      { img: 'images/herbalui_wellness_storefront.png', cap: 'Natural Organic Skincare and Herbal Products Landing Page' }
+    ]
+  },
+  {
+    id: 'constructionui',
+    name: 'Apex Construction Landing Page',
+    shortDesc: 'Professional landing page blueprint for structural engineering firm highlighting core engineering services, project milestones, and heavy machinery operations.',
+    type: 'UI/UX Design · Figma',
+    category: 'uiux',
+    locked: false,
+    previewUrl: '',
+    links: [],
+    slides: [
+      { img: 'images/constructionui_landing_page.png', cap: 'Industrial Construction Services & Corporate Branding Showpiece' }
+    ]
+  }
+];
+
+// HERO SWIPER SLIDESHOW (filterable: all / software / uiux)
 (function () {
-  const projectsData = [
-    {
-      id: 'kyrios',
-      name: 'Kyrios — E-Learning Platform',
-      shortDesc: 'Online learning platform with tiered subscriptions, course purchasing, Google OAuth, and interactive dashboards for users and admins.',
-      type: 'Next.js · Django · PostgreSQL',
-      locked: false,
-      links: [
-        { url: 'https://github.com/bernarddwumfour/Creaca', label: 'Frontend' },
-        { url: 'https://github.com/bernarddwumfour/kyrios-backend', label: 'Backend' }
-      ],
-      slides: [
-        { img: 'images/kyrios_hero_landing.png', cap: 'AI-Driven Skill Acquisition Hero' },
-        { img: 'images/kyrios_course_catalog.png', cap: 'Multi-Disciplinary Course Explorer' },
-        { img: 'images/kyrios_pricing_plans.png', cap: 'Tiered Learning Path Subscriptions' },
-        { img: 'images/kyrios_admin_dashboard.png', cap: 'System Oversight & Admin Analytics' },
-        { img: 'images/kyrios_user_profile.png', cap: 'User Personalization & Account Info' },
-        { img: 'images/kyrios_security_settings.png', cap: 'Advanced Workspace Security & 2FA' }
-      ]
-    },
-    {
-      id: 'iplug',
-      name: 'iPlug — E-Commerce & POS',
-      shortDesc: 'Unified retail ecosystem: customer-facing web storefront + on-premise POS with live inventory sync, barcode scanning, and split payment processing.',
-      type: 'Next.js · Django · PostgreSQL',
-      locked: false,
-      links: [
-        { url: 'https://github.com/bernarddwumfour/estore-frontend', label: 'Frontend' },
-        { url: 'https://github.com/bernarddwumfour/estore-backend', label: 'Backend' }
-      ],
-      slides: [
-        { img: 'images/iplug_storefront_hero.png', cap: 'Premium Apple Retail Digital Storefront Hero' },
-        { img: 'images/iplug_product_grid.png', cap: 'Dynamic Catalog Filtering and Product Grid' },
-        { img: 'images/iplug_categories_showcase.png', cap: 'Visual Category Explorer and Promotional Banners' },
-        { img: 'images/iplug_admin_analytics.png', cap: 'Products Analytics, Revenue and Order Trends Dashboard' },
-        { img: 'images/iplug_category_management.png', cap: 'Backend Inventory Management and Category Hierarchy' },
-        { img: 'images/iplug_pos_terminal.png', cap: 'Cloud-Synced Point of Sale Checkout Interface' },
-        { img: 'images/iplug_order_logs.png', cap: 'System Audit Logs & Order Activity Monitor' }
-      ]
-    },
-    {
-      id: 'furnichar',
-      name: 'Furnichar — Premium E-Commerce',
-      shortDesc: 'Immersive online furniture retail concept emphasizing clean structural grids, high-fidelity production imagery, and seamless checkout pipelines.',
-      type: 'UI/UX Design · Figma',
-      locked: false,
-      links: [],
-      slides: [
-        { img: 'images/furnichar_hero_showcase.png', cap: 'Minimalist Furniture E-Commerce Hero & Product Feature' }
-      ]
-    },
-    {
-      id: 'constructionui',
-      name: 'Apex Construction Landing Page',
-      shortDesc: 'Professional landing page blueprint for structural engineering firm highlighting core engineering services, project milestones, and heavy machinery operations.',
-      type: 'UI/UX Design · Figma',
-      locked: false,
-      links: [],
-      slides: [
-        { img: 'images/constructionui_landing_page.png', cap: 'Industrial Construction Services & Corporate Branding Showpiece' }
-      ]
-    },
-    {
-      id: 'sparklescrub',
-      name: 'SparkleScrub — Commercial Cleaning',
-      shortDesc: 'Service booking presentation page tailored for modern professional cleaning enterprises, prioritizing transparent pricing tiers and user conversion architecture.',
-      type: 'UI/UX Design · Figma',
-      locked: false,
-      links: [],
-      slides: [
-        { img: 'images/sparklescrub_service_booking.png', cap: 'Commercial and Domestic Cleaner Service Information Portal' }
-      ]
-    },
-    {
-      id: 'salon',
-      name: 'GlowSalon — Wellness Booking Platform',
-      shortDesc: 'Elegant luxury beauty and spa appointment platform mockup incorporating clean layout components to improve friction-free service bookings.',
-      type: 'UI/UX Design · Figma',
-      locked: false,
-      links: [],
-      slides: [
-        { img: 'images/salon_appointment_hub.png', cap: 'High-End Wellness Salon Landing and Appointment Hub' }
-      ]
-    },
-    {
-      id: 'plantui',
-      name: 'Verdant — Botanical Retail Portal',
-      shortDesc: 'Organic e-commerce layout emphasizing modern plant nurseries, clean typography, minimalist navigation paths, and botanical care instructions.',
-      type: 'UI/UX Design · Figma',
-      locked: false,
-      links: [],
-      slides: [
-        { img: 'images/plantui_botanical_catalog.png', cap: 'Urban Plant Nursery Storefront Grid and Lifestyle Section' }
-      ]
-    },
-    {
-      id: 'herbalui',
-      name: 'Herbal Essence — Wellness Brand Page',
-      shortDesc: 'Holistic healthcare product application concept blending clean earthy tones, transparent ingredient lists, and smooth customer navigation layouts.',
-      type: 'UI/UX Design · Figma',
-      locked: false,
-      links: [],
-      slides: [
-        { img: 'images/herbalui_wellness_storefront.png', cap: 'Natural Organic Skincare and Herbal Products Landing Page' }
-      ]
-    }
-  ];
-
-  const flat = [];
-  projectsData.forEach((proj, pi) => {
-    proj.slides.forEach((slide, si) => {
-      flat.push({ pi, si, slide, proj: proj });
-    });
-  });
-
   const track = document.getElementById('heroViewerTrack');
   const thumbsEl = document.getElementById('heroThumbs');
+  const tabsEl = document.getElementById('heroProjTabs');
+  if (!track || !thumbsEl) return;
 
-  if (track && thumbsEl) {
+  const SLIDE_MS = 3000;
+  let flat = [];
+  let curFlat = 0;
+  let elapsed = 0;
+  let tick = null;
+
+  function projectsFor(tab) {
+    return tab === 'all' ? ALL_PROJECTS : ALL_PROJECTS.filter(p => p.category === tab);
+  }
+
+  function buildFlat(tab) {
+    const list = projectsFor(tab);
+    flat = [];
+    track.innerHTML = '';
+    thumbsEl.innerHTML = '';
+
+    list.forEach((proj, pi) => {
+      proj.slides.forEach((slide, si) => {
+        flat.push({ pi, si, slide, proj });
+      });
+    });
+
     flat.forEach(item => {
       const div = document.createElement('div');
       div.className = 'hero-viewer-slide';
-      div.innerHTML = `<img src="${item.slide.img}" alt="${item.slide.caption}" loading="lazy">`;
+      div.innerHTML = `<img src="${item.slide.img}" alt="${item.slide.cap}" loading="lazy">`;
       track.appendChild(div);
     });
 
-    projectsData.forEach((proj, pi) => {
+    list.forEach((proj, pi) => {
       const th = document.createElement('div');
       th.className = 'hero-thumb' + (pi === 0 ? ' active' : '');
       th.innerHTML = `
@@ -136,49 +173,57 @@
       th.addEventListener('click', () => jumpToProject(pi));
       thumbsEl.appendChild(th);
     });
+  }
 
-    let curFlat = 0;
-    let elapsed = 0;
-    let tick;
-    const SLIDE_MS = 3000;
+  function goToFlat(idx, resetEl = true) {
+    if (!flat.length) return;
+    curFlat = (idx + flat.length) % flat.length;
+    const item = flat[curFlat];
+    track.style.transform = `translateX(-${curFlat * 100}%)`;
+    document.querySelectorAll('.hero-thumb').forEach((t, i) => t.classList.toggle('active', i === item.pi));
+    if (resetEl) {
+      elapsed = 0;
+      document.getElementById('heroProgressFill').style.width = '0%';
+    }
+    resetTick();
+  }
 
-    function goToFlat(idx, resetEl = true) {
-      curFlat = (idx + flat.length) % flat.length;
-      const item = flat[curFlat];
-      track.style.transform = `translateX(-${curFlat * 100}%)`;
-      document.getElementById('heroViewerProj').textContent = item.proj.name;
-      document.getElementById('heroViewerName').textContent = item.slide.caption;
-      document.getElementById('heroViewerCaption').textContent = `${item.si + 1} / ${item.proj.slides.length}`;
-      document.querySelectorAll('.hero-thumb').forEach((t, i) => t.classList.toggle('active', i === item.pi));
-      if (resetEl) {
+  function jumpToProject(pi) {
+    const idx = flat.findIndex(f => f.pi === pi);
+    if (idx >= 0) goToFlat(idx);
+  }
+
+  function resetTick() {
+    clearInterval(tick);
+    tick = setInterval(() => {
+      elapsed += 80;
+      const pct = Math.min(elapsed / SLIDE_MS * 100, 100);
+      document.getElementById('heroProgressFill').style.width = pct + '%';
+      if (elapsed >= SLIDE_MS) {
         elapsed = 0;
-        document.getElementById('heroProgressFill').style.width = '0%';
+        goToFlat(curFlat + 1, false);
       }
-      resetTick();
-    }
+    }, 80);
+  }
 
-    function jumpToProject(pi) {
-      const idx = flat.findIndex(f => f.pi === pi);
-      if (idx >= 0) goToFlat(idx);
-    }
-
-    function resetTick() {
-      clearInterval(tick);
-      tick = setInterval(() => {
-        elapsed += 80;
-        const pct = Math.min(elapsed / SLIDE_MS * 100, 100);
-        document.getElementById('heroProgressFill').style.width = pct + '%';
-        if (elapsed >= SLIDE_MS) {
-          elapsed = 0;
-          goToFlat(curFlat + 1, false);
-        }
-      }, 80);
-    }
-
-    document.getElementById('heroPrev').addEventListener('click', () => goToFlat(curFlat - 1));
-    document.getElementById('heroNext').addEventListener('click', () => goToFlat(curFlat + 1));
+  function applyTab(tab) {
+    buildFlat(tab);
     goToFlat(0);
   }
+
+  if (tabsEl) {
+    tabsEl.addEventListener('click', e => {
+      const btn = e.target.closest('.hero-proj-tab');
+      if (!btn) return;
+      tabsEl.querySelectorAll('.hero-proj-tab').forEach(t => t.classList.toggle('active', t === btn));
+      applyTab(btn.dataset.tab);
+    });
+  }
+
+  document.getElementById('heroPrev').addEventListener('click', () => goToFlat(curFlat - 1));
+  document.getElementById('heroNext').addEventListener('click', () => goToFlat(curFlat + 1));
+
+  applyTab('all');
 })();
 
 // Custom cursor
@@ -308,148 +353,40 @@ const CARD_MS = 3500;
 const GH_ICON = `<svg width="11" height="11" viewBox="0 0 12 12" fill="currentColor"><path d="M6 1C3.24 1 1 3.24 1 6c0 2.21 1.43 4.09 3.42 4.75.25.05.34-.11.34-.24v-.85c-1.39.3-1.68-.67-1.68-.67-.23-.58-.56-.73-.56-.73-.45-.31.03-.3.03-.3.5.03.76.51.76.51.44.76 1.16.54 1.44.41.04-.32.17-.54.31-.66-1.1-.13-2.26-.55-2.26-2.45 0-.54.19-.98.51-1.33-.05-.12-.22-.63.05-1.31 0 0 .42-.13 1.37.51A4.77 4.77 0 016 3.52c.42 0 .85.06 1.25.17.95-.64 1.37-.51 1.37-.51.27.68.1 1.19.05 1.31.32.35.51.79.51 1.33 0 1.91-1.16 2.32-2.27 2.45.18.15.34.46.34.92v1.37c0 .13.09.29.34.24A5.01 5.01 0 0011 6c0-2.76-2.24-5-5-5z"/></svg>`;
 const LOCK_ICON = `<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><rect x="1" y="4" width="8" height="5.5" rx="1" stroke="currentColor" stroke-width="0.9"/><path d="M3 4V3a2 2 0 014 0v1" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"/></svg>`;
 const EYE_ICON = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
+const LIVE_ICON = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`;
+const FIGMA_ICON = `<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8.5 2A3.5 3.5 0 0 0 8.5 9H12V2H8.5zM12 2v7h3.5a3.5 3.5 0 1 0 0-7H12zM8.5 9a3.5 3.5 0 1 0 0 7H12V9H8.5zm7 0a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zM8.5 16A3.5 3.5 0 1 0 12 19.5V16H8.5z"/></svg>`;
 
 const PROJECTS = {
-  software: [
-    {
-      id: 'kyrios',
-      name: 'Kyrios — E-Learning Platform',
-      shortDesc: 'Online learning platform with tiered subscriptions, course purchasing, Google OAuth, and interactive dashboards for users and admins.',
-      type: 'Next.js · Django · PostgreSQL',
-      locked: false,
-      previewUrl: 'https://kyrios-demo.vercel.app/en',
-      links: [
-        { url: 'https://github.com/bernarddwumfour/Creaca', label: 'Frontend' },
-        { url: 'https://github.com/bernarddwumfour/kyrios-backend', label: 'Backend' }
-      ],
-      slides: [
-        { img: 'images/kyrios_hero_landing.png', cap: 'AI-Driven Skill Acquisition Hero' },
-        { img: 'images/kyrios_course_catalog.png', cap: 'Multi-Disciplinary Course Explorer' },
-        { img: 'images/kyrios_pricing_plans.png', cap: 'Tiered Learning Path Subscriptions' },
-        { img: 'images/kyrios_admin_dashboard.png', cap: 'System Oversight & Admin Analytics' },
-        { img: 'images/kyrios_user_profile.png', cap: 'User Personalization & Account Info' },
-        { img: 'images/kyrios_security_settings.png', cap: 'Advanced Workspace Security & 2FA' }
-      ]
-    },
-    {
-      id: 'iplug',
-      name: 'iPlug — E-Commerce & POS',
-      shortDesc: 'Unified retail ecosystem: customer-facing web storefront + on-premise POS with live inventory sync, barcode scanning, and split payment processing.',
-      type: 'Next.js · Django · PostgreSQL',
-      locked: false,
-      previewUrl: 'https://estore-frontend-boqb.vercel.app/',
-      links: [
-        { url: 'https://github.com/bernarddwumfour/estore-frontend', label: 'Frontend' },
-        { url: 'https://github.com/bernarddwumfour/estore-backend', label: 'Backend' }
-      ],
-      slides: [
-        { img: 'images/iplug_storefront_hero.png', cap: 'Premium Apple Retail Digital Storefront Hero' },
-        { img: 'images/iplug_product_grid.png', cap: 'Dynamic Catalog Filtering and Product Grid' },
-        { img: 'images/iplug_categories_showcase.png', cap: 'Visual Category Explorer and Promotional Banners' },
-        { img: 'images/iplug_admin_analytics.png', cap: 'Products Analytics, Revenue and Order Trends Dashboard' },
-        { img: 'images/iplug_category_management.png', cap: 'Backend Inventory Management and Category Hierarchy' },
-        { img: 'images/iplug_pos_terminal.png', cap: 'Cloud-Synced Point of Sale Checkout Interface' },
-        { img: 'images/iplug_order_logs.png', cap: 'System Audit Logs & Order Activity Monitor' }
-      ]
-    },
-  ],
-  uiux: [
-    {
-      id: 'furnichar',
-      name: 'Furnichar — Premium E-Commerce',
-      shortDesc: 'Immersive online furniture retail concept emphasizing clean structural grids, high-fidelity production imagery, and seamless checkout pipelines.',
-      type: 'UI/UX Design · Figma',
-      locked: false,
-      previewUrl: 'https://www.figma.com/design/Te914L3OTQXb2E9JQtK1zV/Untitled?node-id=0-1&t=7edxXdc37ZtESBw9-0',
-      links: [],
-      slides: [
-        { img: 'images/furnichar_hero_showcase.png', cap: 'Minimalist Furniture E-Commerce Hero & Product Feature' }
-      ]
-    },
-    {
-      id: 'sparklescrub',
-      name: 'SparkleScrub — Commercial Cleaning',
-      shortDesc: 'Service booking presentation page tailored for modern professional cleaning enterprises, prioritizing transparent pricing tiers and user conversion architecture.',
-      type: 'UI/UX Design · Figma',
-      locked: false,
-      previewUrl: 'https://www.figma.com/design/m8k8KQpaZN6DXGipWBBD99/Untitled?node-id=0-1&t=ZbFy7KElvtMarocd-0',
-      links: [],
-      slides: [
-        { img: 'images/sparklescrub_service_booking.png', cap: 'Commercial and Domestic Cleaner Service Information Portal' }
-      ]
-    },
-    {
-      id: 'salon',
-      name: 'GlowSalon — Wellness Booking Platform',
-      shortDesc: 'Elegant luxury beauty and spa appointment platform mockup incorporating clean layout components to improve friction-free service bookings.',
-      type: 'UI/UX Design · Figma',
-      locked: false,
-      previewUrl: 'https://www.figma.com/design/4DXRbTKDdTThPfcdbeOo9H/Untitled?node-id=0-1&t=6jamwAUNh3gLNANf-1',
-      links: [],
-      slides: [
-        { img: 'images/salon_appointment_hub.png', cap: 'High-End Wellness Salon Landing and Appointment Hub' }
-      ]
-    },
-    {
-      id: 'plantui',
-      name: 'Verdant — Botanical Retail Portal',
-      shortDesc: 'Organic e-commerce layout emphasizing modern plant nurseries, clean typography, minimalist navigation paths, and botanical care instructions.',
-      type: 'UI/UX Design · Figma',
-      locked: false,
-      previewUrl: 'https://www.figma.com/design/rp4oDJ7XWsH5z50KwSACUd/Untitled?node-id=0-1&t=LstXrxVJlh5LugzK-1',
-      links: [],
-      slides: [
-        { img: 'images/plantui_botanical_catalog.png', cap: 'Urban Plant Nursery Storefront Grid and Lifestyle Section' }
-      ]
-    },
-    {
-      id: 'herbalui',
-      name: 'Herbal Essence — Wellness Brand Page',
-      shortDesc: 'Holistic healthcare product application concept blending clean earthy tones, transparent ingredient lists, and smooth customer navigation layouts.',
-      type: 'UI/UX Design · Figma',
-      locked: false,
-      previewUrl: 'https://www.figma.com/file/EeTZQiqhsiJ6OanfDcDcwh/Untitled?type=design&node-id=0-1&mode=design&t=ksTvfDoJ1BXyH7ZJ-0',
-      links: [],
-      slides: [
-        { img: 'images/herbalui_wellness_storefront.png', cap: 'Natural Organic Skincare and Herbal Products Landing Page' }
-      ]
-    },
-    {
-      id: 'constructionui',
-      name: 'Apex Construction Landing Page',
-      shortDesc: 'Professional landing page blueprint for structural engineering firm highlighting core engineering services, project milestones, and heavy machinery operations.',
-      type: 'UI/UX Design · Figma',
-      locked: false,
-      previewUrl: '',
-      links: [],
-      slides: [
-        { img: 'images/constructionui_landing_page.png', cap: 'Industrial Construction Services & Corporate Branding Showpiece' }
-      ]
-    },
-  ]
+  software: ALL_PROJECTS.filter(p => p.category === 'software'),
+  uiux: ALL_PROJECTS.filter(p => p.category === 'uiux'),
+  all: ALL_PROJECTS
 };
-
-PROJECTS.all = [...PROJECTS.software, ...PROJECTS.uiux];
 
 function buildCard(proj) {
   const slides = proj.slides.map((s, i) => `
     <div class="proj-slide">
       <img src="${s.img}" alt="${s.cap}" loading="lazy">
-      <div class="proj-slide-ov">
-        <div class="proj-slide-label">Slide note</div>
-        <div class="proj-slide-text">${s.cap}</div>
-      </div>
     </div>`).join('');
   const dots = proj.slides.length > 1 ? proj.slides.map((_, i) => `<div class="proj-dot${i === 0 ? ' active' : ''}" data-i="${i}"></div>`).join('') : '';
   const arrows = proj.slides.length > 1 ? `<div class="proj-arrows"><div class="proj-arrow pa-prev">&#8592;</div><div class="proj-arrow pa-next">&#8594;</div></div>` : '';
 
-  const previewLink = (proj.previewUrl && proj.previewUrl.trim() !== '')
-    ? `<a href="${proj.previewUrl}" target="_blank" class="proj-link preview-btn" title="Live Preview">${EYE_ICON}</a>`
-    : '';
+  // Action buttons shown on the hover overlay
+  let primaryBtn = '';
+  if (proj.previewUrl && proj.previewUrl.trim() !== '') {
+    const isFigma = proj.category === 'uiux';
+    primaryBtn = `<a href="${proj.previewUrl}" target="_blank" class="proj-action-btn primary">${isFigma ? FIGMA_ICON : LIVE_ICON}<span>${isFigma ? 'View in Figma' : 'Live Demo'}</span></a>`;
+  }
+  const repoBtns = proj.links.map(l => `<a href="${l.url}" target="_blank" class="proj-action-btn">${GH_ICON}<span>${l.label} Repo</span></a>`).join('');
+  const repoRow = repoBtns ? `<div class="proj-actions-row">${repoBtns}</div>` : '';
+  const actions = (primaryBtn || repoBtns) ? `<div class="proj-actions">${primaryBtn}${repoRow}</div>` : '';
 
-  const links = proj.links.map(l => `<a href="${l.url}" target="_blank" class="proj-link" title="${l.label} GitHub">${GH_ICON}</a>`).join('');
   const tags = proj.type.split('·').map(t => `<span class="tag">${t.trim()}</span>`).join('');
   const locked = proj.locked ? `<div class="locked-badge">${LOCK_ICON} Private / Enterprise</div>` : '';
+
+  // Split "Title — Subtitle" into two lines so no em dash is shown
+  const [nameMain, ...nameRest] = proj.name.split('—');
+  const nameHtml = `<span class="proj-name-main">${nameMain.trim()}</span>` +
+    (nameRest.length ? `<span class="proj-name-sub">${nameRest.join('—').trim()}</span>` : '');
   return `
   <div class="proj-card reveal" data-id="${proj.id}">
     <div class="proj-ss">
@@ -460,13 +397,11 @@ function buildCard(proj) {
       ${proj.slides.length > 1 ? `<div class="proj-counter">1 / ${proj.slides.length}</div>` : ''}
     </div>
     <div class="proj-info">
-      <div class="proj-info-top">
-        <div class="proj-name">${proj.name}</div>
-        <div class="proj-links-row">${previewLink}${links}</div>
-      </div>
+      <div class="proj-name">${nameHtml}</div>
       <p class="proj-short-desc">${proj.shortDesc}</p>
       <div class="proj-tags">${tags}</div>
       ${locked}
+      ${actions}
     </div>
   </div>`;
 }
