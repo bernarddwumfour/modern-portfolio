@@ -48,6 +48,25 @@ const ALL_PROJECTS = [
     ]
   },
   {
+    id: 'dataplug',
+    name: 'DataPlug — Mobile Data Marketplace',
+    shortDesc: 'Online platform for buying affordable mobile data bundles in Ghana, with secure checkout, automated delivery, and account-based order tracking.',
+    type: 'Next.js · Paystack · Mobile Money',
+    category: 'software',
+    locked: false,
+    previewUrl: 'https://dataplug-seven.vercel.app/',
+    links: [],
+    slides: [
+      { img: 'images/dataplug_hero_landing.png', cap: 'Mobile Data Bundle Purchase Landing Experience' },
+      { img: 'images/dataplug_how_it_works.png', cap: 'Simple, Secure Data Purchase Journey' },
+      { img: 'images/dataplug_bundle_catalog.png', cap: 'Network-Specific Data Bundle Catalog and Filters' },
+      { img: 'images/dataplug_checkout.png', cap: 'Recipient Details and Secure Payment Checkout' },
+      { img: 'images/dataplug_logged_in_hero.png', cap: 'Signed-In Customer Purchase Experience' },
+      { img: 'images/dataplug_account_profile.png', cap: 'Customer Account Profile Management' },
+      { img: 'images/dataplug_transaction_history.png', cap: 'Mobile Data Purchase Transaction History' }
+    ]
+  },
+  {
     id: 'furnichar',
     name: 'Furnichar — Premium E-Commerce',
     shortDesc: 'Immersive online furniture retail concept emphasizing clean structural grids, high-fidelity production imagery, and seamless checkout pipelines.',
