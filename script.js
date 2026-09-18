@@ -26,6 +26,23 @@ const ALL_PROJECTS = [
     ]
   },
   {
+    id: 'oneprompt',
+    name: 'OnePrompt — Multi-Model AI Workspace',
+    shortDesc: 'Unified AI workspace that brings leading models into one platform, with local-currency credits, transparent usage tracking, and multi-model conversations.',
+    type: 'Next.js · AI Integrations · Paystack',
+    category: 'software',
+    locked: false,
+    previewUrl: '',
+    links: [],
+    slides: [
+      { img: 'images/oneprompt_hero_workspace.png', cap: 'Multi-Model AI Workspace Landing Experience' },
+      { img: 'images/oneprompt_product_overview.png', cap: 'AI Access, Local Payments and Transparent Credit Usage' },
+      { img: 'images/oneprompt_sign_in.png', cap: 'Secure Customer Sign-In Experience' },
+      { img: 'images/oneprompt_chat_workspace.png', cap: 'AI Conversation Workspace with Saved Chats' },
+      { img: 'images/oneprompt_credit_top_up.png', cap: 'Local-Currency AI Credit Top-Up Plans' }
+    ]
+  },
+  {
     id: 'iplug',
     name: 'iPlug — E-Commerce & POS',
     shortDesc: 'Unified retail ecosystem: customer-facing web storefront + on-premise POS with live inventory sync, barcode scanning, and split payment processing.',
