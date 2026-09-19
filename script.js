@@ -32,8 +32,11 @@ const ALL_PROJECTS = [
     type: 'Next.js · AI Integrations · Paystack',
     category: 'software',
     locked: false,
-    previewUrl: '',
-    links: [],
+    previewUrl: 'https://oneprompt-omega.vercel.app/',
+    links: [
+      { url: 'https://github.com/bernarddwumfour/oneprompt', label: 'Frontend' },
+      { url: 'https://github.com/bernarddwumfour/oneprompt-backend', label: 'Backend' }
+    ],
     slides: [
       { img: 'images/oneprompt_hero_workspace.png', cap: 'Multi-Model AI Workspace Landing Experience' },
       { img: 'images/oneprompt_product_overview.png', cap: 'AI Access, Local Payments and Transparent Credit Usage' },
