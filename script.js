@@ -75,7 +75,10 @@ const ALL_PROJECTS = [
     category: 'software',
     locked: false,
     previewUrl: 'https://dataplug-seven.vercel.app/',
-    links: [],
+    links: [
+      { url: 'https://github.com/bernarddwumfour/dataplug', label: 'Frontend' },
+      { url: 'https://github.com/bernarddwumfour/dataplug-backend', label: 'Backend' }
+    ],
     slides: [
       { img: 'images/dataplug_hero_landing.png', cap: 'Mobile Data Bundle Purchase Landing Experience' },
       { img: 'images/dataplug_how_it_works.png', cap: 'Simple, Secure Data Purchase Journey' },
